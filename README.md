@@ -58,5 +58,5 @@
 * https://www.sqlalchemy.org/
 * https://www.sqlite.org/index.html
 * https://microservices.io/
-* https://docs.python-requests.org/en/latest/
+* https://requests.readthedocs.io/en/latest/
 * https://martinfowler.com/articles/microservices.html
