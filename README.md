@@ -1,7 +1,5 @@
 # Flash Card App
 
-## Unzip the microservices before use
-
 ### Endpoint
 > http://127.0.0.1:5000/
 
