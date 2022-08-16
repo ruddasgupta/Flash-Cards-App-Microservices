@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from app import app, db
 from app.models import Card
-import requests
+import httpx
 
 @app.route('/static/<path:path>')
 def send_static(path):
@@ -43,7 +43,7 @@ def cards_data(user_id):
     output = []
 
     for card in cards:
-        res = requests.get('http://127.0.0.1:5002/score/card/'+str(card.id))
+        res = httpx.get('http://127.0.0.1:5002/score/card/'+str(card.id))
         score = res.json()
         app.logger.info(score)
         output.append({'id': str(card.id), 'topic': str(card.topic), 'question': str(card.question), 'answer': str(card.answer), 'timestamp': str(card.timestamp), 'score': score['score'],'attempts': score['attempts']})
@@ -79,7 +79,7 @@ def create_card():
     new_card = Card(topic=data['topic'], question=data['question'], answer=data['answer'], user_id=data['userId'])
     db.session.add(new_card)
     db.session.commit()
-    res = requests.post('http://127.0.0.1:5002/score', json={'cardId': new_card.id,'userId':new_card.user_id})
+    res = httpx.post('http://127.0.0.1:5002/score', json={'cardId': new_card.id,'userId':new_card.user_id})
     print(res)
     return jsonify({'message' : "Card created!"}), 201
 
@@ -107,7 +107,7 @@ def delete_card(card_id):
         return jsonify({'message' : 'No card found!'}), 404
 
     db.session.delete(card)
-    res = requests.delete('http://127.0.0.1:5002/score/card/'+ str(card_id))
+    res = httpx.delete('http://127.0.0.1:5002/score/card/'+ str(card_id))
     print(res)
     db.session.commit()
 
