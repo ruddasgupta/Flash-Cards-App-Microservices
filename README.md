@@ -58,3 +58,4 @@
 * https://microservices.io/
 * https://requests.readthedocs.io/en/latest/
 * https://martinfowler.com/articles/microservices.html
+* https://www.python-httpx.org/
